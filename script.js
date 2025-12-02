@@ -707,6 +707,7 @@ console.log("Hello World!");
 //   //  let len=prompt("Enter the length of password");
 //     let len=6;
 //    let i=0;
+
 //    while(i < len){
 //       res+=charS[Math.floor(Math.random() * len)];
 //       res+=nums[Math.floor(Math.random() * len)];
