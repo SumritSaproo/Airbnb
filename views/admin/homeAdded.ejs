@@ -1,0 +1,14 @@
+ <%- include('../partials/uptoHead')%>
+  <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="card text-center p-5">
+      <h3 class="card-title mb-4">🎉 Home Added Successfully!</h3>
+      <p class="mb-4">Your property has been registered and added successfully to the list.</p>
+      <button onclick="moveToHome()" type="button" class="btn btn-primary">Go to Home</button>
+    </div>
+  </div>
+  <script>
+  function moveToHome(){
+    location.href="/";
+  }
+  </script>
+ <%- include('../partials/endOfBody')%>

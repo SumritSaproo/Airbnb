@@ -1,0 +1,51 @@
+ <%- include('../partials/uptoHead')%>
+
+<h2>Welcome to the airbnb.</h2>
+   <h4>Below  are the available properties :</h4>
+   <div class="container mt-4">
+  <div class="row g-4">
+    <% registeredHomes.forEach((home) => { %>
+      <div class="col-md-4">
+        <div class="card shadow-sm h-100">
+          <img src="<%= home.imgURL %>" class="card-img-top" alt="Property Image">
+          <div class="card-body">
+            <h5 class="card-title"><%= home.propertyname %></h5>
+            <p class="card-text">
+              <strong>👤 Owner:</strong> <%= home.username %><br>
+              <strong>📍 Location:</strong> <%= home.location || 'Goa, India' %><br>
+              <strong>💰 Price/Night:</strong> ₹<%= home.price || '4,500' %><br>
+              <strong>⭐ Rating:</strong> <%= home.ratingLabel || 'Excellent' %> <%= home.ratingEmoji || '😄' %>
+            </p>
+           <div class="d-flex justify-content-between gap-2">
+  <!-- View Details -->
+  <a href="/home-detail/<%= home._id %>" 
+     class="btn btn-outline-primary btn-lg  fw-semibold">
+    <i class="bi bi-info-circle me-2"></i> View Details
+  </a>
+
+  <!-- Add to Favorites -->
+   <form action="/addToFav" method="POST">
+   <input type="hidden" name="houseID" value="<%=home._id%>">
+  <button  id="addToFav" type="submit"
+     class="btn btn-warning btn-lg  fw-semibold text-white">
+    <i class="bi bi-star-fill me-2"></i> Add to Favorites
+   </button></form>
+
+  <!-- Book Now -->
+  <a href="#" 
+     class="btn btn-success btn-lg rounded-pill fw-semibold shadow-sm">
+    <i class="bi bi-calendar-check me-2"></i> Book Now
+  </a>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      
+    <% }) %>
+  </div>
+</div>
+
+
+ <%- include('../partials/endOfBody')%>

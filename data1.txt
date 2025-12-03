@@ -1,0 +1,1 @@
+[{"imgURL":"https://images.pexels.com/photos/186077/pexels-photo-186077.jpeg?cs=srgb&dl=pexels-binyaminmellish-186077.jpg&fm=jpg","username":"Sumit Tripathi","propertyname":"Mannat","price":"9200","location":"San Francisco, USA","ratingLabel":"2"}]

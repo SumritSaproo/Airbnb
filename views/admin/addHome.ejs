@@ -1,0 +1,113 @@
+ <%- include('../partials/uptoHead') %>
+
+<div class="container mt-5">
+    <div class="card shadow p-4 rounded-4">
+      <h2 class="text-center mb-4"><%= editing ? "Edit home details" : "Add your property" %></h2>
+      <form action="<%= editing ? '/host/postEditHome' : '/host/property-details' %>" method="POST" class="needs-validation" >
+
+         <input type="hidden" name="_id" value="<%= editing ?  reqHome._id : '' %>">
+        <!-- Property Image -->
+        <div class="mb-3">
+          <label for="propertyImage" class="form-label">Property Image</label>
+          <input type="url" class="form-control" id="propertyImage" name="imgURL" value="<%= editing ? reqHome.imgURL :  '' %>" >
+          <div class="invalid-feedback">Please upload a property image.</div>
+        </div>
+
+        <!-- Property Owner -->
+        <div class="mb-3">
+          <label for="ownerName" class="form-label">Property Owner</label>
+          <input type="text" name="username" class="form-control" id="ownerName" value="<%= editing ? reqHome.username :  '' %>" required>
+          <div class="invalid-feedback">Please enter the owner's name.</div>
+        </div>
+
+        <!-- Property Name -->
+        <div class="mb-3">
+          <label for="propertyName" class="form-label">Property Name</label>
+          <input type="text" name="propertyname" class="form-control" id="propertyName" value="<%= editing ? reqHome.propertyname :  '' %>" required>
+          <div class="invalid-feedback">Please enter the property name.</div>
+        </div>
+
+         <!-- Property Details -->
+        <div class="mb-3">
+          <label for="propertyDetails" class="form-label">Description</label>
+          <input type="text" name="propertyDetails" class="form-control" id="propertyDetails" value="<%= editing ? reqHome.propertyDetails :  '' %>" required>
+          <div class="invalid-feedback">Please enter some info.</div>
+        </div>
+
+        <!-- Price Range -->
+        <div class="mb-3">
+          <label for="priceRange" class="form-label">Price per Night (₹1000–₹10000)</label>
+          <input type="range" class="form-range" id="priceRange" name="price" min="1000" max="10000" step="100" value="<%= editing ? reqHome.price : '5000' %>" oninput="priceOutput.value = '₹' + this.value">
+          <output id="priceOutput" class="form-text"><%= editing ? reqHome.price :  '₹5000' %></output>
+        </div>
+
+        <!-- Location -->
+        <div class="mb-3">
+          <label for="location" class="form-label">Location</label>
+          <input type="text" class="form-control" name="location" id="location" value="<%= editing ? reqHome.location :  '' %>" >
+          <div class="invalid-feedback">Please enter the location.</div>
+        </div>
+
+        <!-- Emoji Rating -->
+        <div class="mb-3">
+          <label for="emojiRange" class="form-label">Property Rating (1 to 5)</label>
+          <input type="range" class="form-range" id="emojiRange" name="ratingLabel" min="1" max="5" step="1" value="<%= editing ? reqHome.ratingLabel : '3' %>" oninput="updateEmojiRating(this.value)">
+          <div class="d-flex align-items-center mt-2">
+            <span class="rating-label" id="ratingText">Average</span>
+            <span id="ratingEmoji">😐</span>
+          </div>
+        </div>
+
+        
+
+        <!-- Submit -->
+        <div class="text-center">
+          <button type="submit" class="btn btn-success px-5"><%= editing ? "Update" : "Add Home" %></button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- JS for Validation and Emoji Rating -->
+  <script>
+    // Update emoji + label based on slider
+    function updateEmojiRating(value) {
+      const text = document.getElementById('ratingText');
+      const emoji = document.getElementById('ratingEmoji');
+
+      const ratings = {
+        1: { label: 'Very Poor', emoji: '😞' },
+        2: { label: 'Poor', emoji: '😟' },
+        3: { label: 'Average', emoji: '😐' },
+        4: { label: 'Good', emoji: '🙂' },
+        5: { label: 'Excellent', emoji: '😄' }
+      };
+
+      text.textContent = ratings[value].label;
+      emoji.textContent = ratings[value].emoji;
+    }
+
+    // Run once on load
+    document.addEventListener('DOMContentLoaded', () => {
+      updateEmojiRating(document.getElementById('emojiRange').value);
+    });
+
+    // Bootstrap validation
+    (() => {
+      'use strict';
+      const forms = document.querySelectorAll('.needs-validation');
+      Array.from(forms).forEach(form => {
+        form.addEventListener('submit', event => {
+          if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          form.classList.add('was-validated');
+        }, false);
+      });
+    })();
+  </script>
+
+
+
+ <%- include('../partials/endOfBody') %>

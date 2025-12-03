@@ -1,0 +1,11 @@
+ <%- include('../partials/uptoHead')%>
+   <ul>
+     <% allEntries.forEach((home)=>{  %>
+         <li>
+              <%= home.propertyname %>
+         </li>
+   <%  });     %>
+   </ul>
+
+
+  <%- include('../partials/endOfBody')%>
