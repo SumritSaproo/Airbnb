@@ -17,4 +17,4 @@ hostRouter.post("/delHome",homeCExports.delHomeList);
 
 
 
-exports.hostRouter=hostRouter;
+module.exports=hostRouter;

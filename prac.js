@@ -9,7 +9,8 @@ app.set("views", "views");
 
 // importing user and host routes
 const userRouter = require("./routes/userRouter");
-const { hostRouter } = require("./routes/hostRouter");
+const  hostRouter  = require("./routes/hostRouter");
+const authRouter = require("./routes/authRouter");
 
 
 app.use((req, res, next) => {
@@ -29,6 +30,8 @@ app.use(express.urlencoded());
 app.use(userRouter);
 
 app.use("/host", hostRouter);
+
+app.use(authRouter);
 
 app.use(pgNotFound);
 

@@ -8,7 +8,6 @@ exports.postAddToFav = (req, res, next) => {
    Favourites.findOne({houseID : reqID}).then(fav =>{
     if(fav){
       console.log("Already added to Favourites");
-      res.redirect("/");
     }else{
       const fav=new Favourites({
         houseID : reqID
