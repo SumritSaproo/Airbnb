@@ -43,6 +43,7 @@ exports.getFavList = (req, res, next) => {
           res.render("./store/fav-list", {
             favourites,
             pageTitle: "Favourites",
+            isLoggedin : req.isLoggedin
           });
          // console.log(favouritehomes);
         })

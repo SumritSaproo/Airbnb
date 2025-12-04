@@ -27,8 +27,20 @@ app.use((req, res, next) => {
 // parsing the request body
 app.use(express.urlencoded());
 
+app.use((req,res,next)=>{
+  req.isLoggedin=req.get('Cookie') ? req.get('Cookie').split("=")[1] === 'true' : false;
+
+  next();
+});
+
 app.use(userRouter);
 
+app.use("/host",(req,res,next)=>{
+  if(!req.isLoggedin){
+    return res.redirect("/");
+  }
+  next();
+})
 app.use("/host", hostRouter);
 
 app.use(authRouter);

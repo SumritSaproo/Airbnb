@@ -7,7 +7,7 @@ exports.home = (req, res, next) => {
 
   Home.find()
     .then((registeredHomes) => {
-      res.render("./store/homepage", { registeredHomes, pageTitle: "Home" });
+      res.render("./store/homepage", { registeredHomes, pageTitle: "Home" ,isLoggedin : req.isLoggedin});
     })
     .catch((err) => {
       console.log("An error occured", err);
@@ -18,6 +18,7 @@ exports.getPropertyDetails = (req, res, next) => {
   res.render("./admin/addHome", {
     editing: false,
     pageTitle: "Property-Details",
+    isLoggedin : req.isLoggedin
   });
 };
 
@@ -47,7 +48,7 @@ exports.postPropertyDetails = (req, res, next) => {
   home
     .save()
     .then(() => {
-      res.render("./admin/homeAdded", { pageTitle: "Property Added" });
+      res.render("./admin/homeAdded", { pageTitle: "Property Added" , isLoggedin : req.isLoggedin});
     })
     .catch((err) => {
       console.log("Error while saving home to DB", err);
@@ -60,6 +61,7 @@ exports.homeList = (req, res, next) => {
       res.render("./store/home-list", {
         allEntries,
         pageTitle: "Property List",
+        isLoggedin : req.isLoggedin
       });
     })
     .catch((err) => {
@@ -70,7 +72,7 @@ exports.homeList = (req, res, next) => {
 exports.hostHomeList = (req, res, next) => {
   Home.find()
     .then((allEntries) => {
-      res.render("./admin/host-home-list", { allEntries });
+      res.render("./admin/host-home-list", { allEntries ,isLoggedin : req.isLoggedin});
     })
     .catch((err) => {
       console.log("An error occured", err);
@@ -84,6 +86,7 @@ exports.homeDetails = (req, res, next) => {
       res.render("./store/home-details", {
         propertyDetails,
         pageTitle: "Property Details",
+        isLoggedin : req.isLoggedin
       });
     })
     .catch((err) => {
@@ -91,7 +94,7 @@ exports.homeDetails = (req, res, next) => {
     });
 };
 exports.AdminPage = (req, res, next) => {
-  res.render("./admin/AdminPage");
+  res.render("./admin/AdminPage",{isLoggedin : req.isLoggedin});
 };
 
 exports.editHomeList = (req, res, next) => {
@@ -103,7 +106,7 @@ exports.editHomeList = (req, res, next) => {
       const newID = new ObjectId(String(houseID));
       registeredHomes = registeredHomes.filter((home) => home._id.equals(newID));
       const reqHome = registeredHomes[0];   
-      res.render("./admin/addHome", { editing, houseID, pageTitle, reqHome });
+      res.render("./admin/addHome", { editing, houseID, pageTitle, reqHome ,isLoggedin : req.isLoggedin});
     })
     .catch((err) => {
       console.log("An error occured", err);
